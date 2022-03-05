@@ -1,0 +1,36 @@
+sourceSets {
+  main {
+    proto {
+      srcDirs 'notifications-proto/proto'
+    }
+    java {
+      srcDirs 'notifications-proto/proto'
+    }
+  }
+}
+
+protobuf {
+
+  generatedFilesBaseDir = "$projectDir/src/generated"
+
+  protoc {
+    artifact = 'com.google.protobuf:protoc:3.19.4'
+  }
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.44.1'
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}
+
+idea {
+  module {
+    sourceDirs += file("${projectDir}/src/generated/main/java");
+    sourceDirs += file("${projectDir}/src/generated/main/grpc");
+  }
+}
