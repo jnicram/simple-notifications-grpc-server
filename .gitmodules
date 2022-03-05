@@ -1,0 +1,3 @@
+[submodule "notifications-proto"]
+	path = notifications-proto
+	url = git@github.com:jnicram/simple-notifications-proto.git
