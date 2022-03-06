@@ -28,6 +28,14 @@ protobuf {
   }
 }
 
+task cleanProtoGen {
+  doFirst {
+    delete("$projectDir/src/generated")
+  }
+}
+
+clean.dependsOn cleanProtoGen
+
 idea {
   module {
     sourceDirs += file("${projectDir}/src/generated/main/java");
