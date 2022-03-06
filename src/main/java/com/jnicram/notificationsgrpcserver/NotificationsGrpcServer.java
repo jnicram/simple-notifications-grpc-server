@@ -9,6 +9,7 @@ import com.jnicram.notification.PingResponse;
 import io.grpc.stub.StreamObserver;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.lognet.springboot.grpc.GRpcService;
@@ -64,12 +65,12 @@ public class NotificationsGrpcServer extends NotificationServiceGrpc.Notificatio
         .mapToObj(i -> NotifyResponse.newBuilder()
             .setMessage("Test message: " + i)
             .setStatus(Status.STATUS_B)
-            .setData(i, "Some data " + i)
+            .addAllData(Arrays.asList("A", "B", "C", "D"))
             .build())
-        .forEach(x -> {
+        .forEach(request -> {
           try {
             Thread.sleep(10_000);
-            responseObserver.onNext(x);
+            responseObserver.onNext(request);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
